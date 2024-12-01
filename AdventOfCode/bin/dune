@@ -1,0 +1,4 @@
+(executable
+ (public_name AdventOfCode)
+ (name main)
+ (libraries AdventOfCode))

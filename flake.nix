@@ -183,6 +183,9 @@
               ocamlPackages.ocaml-lsp
               # Fancy REPL thing
               ocamlPackages.utop
+
+              ocamlPackages.batteries
+              ocamlPackages.core
             ];
 
             # Tools from packages

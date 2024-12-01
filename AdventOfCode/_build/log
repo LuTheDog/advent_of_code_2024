@@ -1,0 +1,16 @@
+# dune exec AdventOfCode
+# OCAMLPARAM: unset
+# Shared cache: enabled-except-user-rules
+# Shared cache location: /home/luka/.cache/dune/db
+# Workspace root: /home/luka/repos/advent_of_code_2024/AdventOfCode
+# Auto-detected concurrency: 8
+# Dune context:
+#  { name = "default"
+#  ; kind = "default"
+#  ; profile = Dev
+#  ; merlin = true
+#  ; fdo_target_exe = None
+#  ; build_dir = In_build_dir "default"
+#  ; instrument_with = []
+#  }
+$ /home/luka/.nix-profile/bin/ocamlc.opt -config > /tmp/dune_fceb3b_output
