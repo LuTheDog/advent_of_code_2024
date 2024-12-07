@@ -1,4 +1,3 @@
-let _dbg () = ()
 let file_name = "input.txt"
 
 let rec strings_from_channel channel strings = 
@@ -43,11 +42,41 @@ let rec calc_el_diff_lists a b idx res =
     else
         res
 
+let rec populate_hash_table list idx =
+    if idx < (List.length list) then (
+        let table = populate_hash_table list (idx + 1) in
+        let curr = (List.nth list idx) in
+        let curr_val = (Hashtbl.find_opt table curr) in
+        match curr_val with
+        | None -> Hashtbl.add table curr 1; table
+        | Some v -> Hashtbl.replace table curr (v + 1); table
+    ) else (
+        Hashtbl.create ((List.length list) / 4);
+    )
+
+let rec calculate_similarity_score list idx table =
+    if idx < (List.length list) then (
+        let score = calculate_similarity_score list (idx + 1) table in
+        let curr = List.nth list idx in
+        let curr_val = Hashtbl.find_opt table curr in
+        match curr_val with
+        | None -> score
+        | Some v -> (score + v * curr)
+    ) else
+        0
+
 let () = 
     let channel = open_in file_name in
     let file_strings = strings_from_channel channel [] in
     let lists = lists_from_string_list file_strings 0 [] [] in
     let sorted_lists = [(List.stable_sort compare (List.nth lists 0)); (List.stable_sort compare (List.nth lists 1))] in
-    print_endline (Int.to_string (calc_el_diff_lists (List.nth sorted_lists 0) (List.nth sorted_lists 1) 0 0))
+    print_endline "The differences between files are:";
+    print_endline (Int.to_string (calc_el_diff_lists (List.nth sorted_lists 0) (List.nth sorted_lists 1) 0 0));
+    let hashTable = populate_hash_table (List.nth lists 1) 0 in
+    let similarity_score = calculate_similarity_score (List.nth lists 0) 0 hashTable in
+    print_endline "Similarity score is:";
+    print_endline (Int.to_string similarity_score);
+    
+
 
 
